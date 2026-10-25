@@ -1,0 +1,6 @@
+{
+  "name": "Music Beams Liner",
+  "description": "Permainan larian baluk muzik 3D neon interaktif untuk menguasai not G, A, dan B pada baluk klef trebel.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
