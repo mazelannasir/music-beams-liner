@@ -18,6 +18,7 @@ import {
   ArrowUpCircle,
   ArrowDownCircle,
   Sparkles,
+  Maximize2,
 } from 'lucide-react';
 import { ActiveWall, AVATAR_OPTIONS, AvatarId, CameraMode, LANES } from '../types/game';
 
@@ -40,6 +41,7 @@ interface GameHUDProps {
   onToggleMute: () => void;
   onToggleCamera: () => void;
   onOpenGuide: () => void;
+  onToggleFullscreen?: () => void;
 }
 
 export const GameHUD: React.FC<GameHUDProps> = ({
@@ -61,6 +63,7 @@ export const GameHUD: React.FC<GameHUDProps> = ({
   onToggleMute,
   onToggleCamera,
   onOpenGuide,
+  onToggleFullscreen,
 }) => {
   const [isDockCollapsed, setIsDockCollapsed] = useState(false);
   const avatarData = AVATAR_OPTIONS.find((a) => a.id === selectedAvatar) || AVATAR_OPTIONS[0];
@@ -268,8 +271,19 @@ export const GameHUD: React.FC<GameHUDProps> = ({
               </kbd>
             </div>
 
-            {/* Right: Camera Mode, Audio, Guide, Pause */}
+            {/* Right: Camera Mode, Fullscreen, Audio, Guide, Pause */}
             <div className="flex items-center gap-1.5 shrink-0">
+              {onToggleFullscreen && (
+                <button
+                  onClick={onToggleFullscreen}
+                  className="p-2 sm:px-2.5 sm:py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-cyan-300 rounded-xl flex items-center gap-1 border border-slate-700 transition-all cursor-pointer"
+                  title="Skrin Penuh / Buka Paparan Penuh"
+                >
+                  <Maximize2 className="w-4 h-4 text-cyan-400" />
+                  <span className="hidden xl:inline">Skrin Penuh</span>
+                </button>
+              )}
+
               <button
                 onClick={onToggleCamera}
                 className="p-2 sm:px-2.5 sm:py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-cyan-300 rounded-xl flex items-center gap-1 border border-slate-700 transition-all cursor-pointer"

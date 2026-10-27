@@ -9,12 +9,13 @@
   to = "/index.html"
   status = 200
 
-# Security and cache headers
+# Headers configured to allow embedding in Google Sites, Google Classroom, and LMS iframes
 [[headers]]
   for = "/*"
   [headers.values]
-    X-Frame-Options = "SAMEORIGIN"
+    Content-Security-Policy = "frame-ancestors 'self' https://*.google.com https://sites.google.com https://*.googleusercontent.com http://localhost:* https://*;"
     X-Content-Type-Options = "nosniff"
+    Access-Control-Allow-Origin = "*"
 
 [[headers]]
   for = "/assets/*"

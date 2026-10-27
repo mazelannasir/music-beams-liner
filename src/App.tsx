@@ -193,6 +193,20 @@ export default function App() {
     sceneRef.current.setCameraMode(nextMode);
   }, [cameraMode]);
 
+  const handleToggleFullscreen = useCallback(() => {
+    try {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().catch(() => {
+          window.open(window.location.href, '_blank');
+        });
+      } else {
+        document.exitFullscreen().catch(() => {});
+      }
+    } catch {
+      window.open(window.location.href, '_blank');
+    }
+  }, []);
+
   // Keyboard navigation & gestures
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -280,7 +294,11 @@ export default function App() {
 
   return (
     <div
-      className="relative w-screen h-screen overflow-hidden bg-slate-950 font-sans select-none"
+      className="fixed inset-0 w-full h-full overflow-hidden bg-slate-950 font-sans select-none"
+      onClick={() => {
+        // Ensure iframe captures focus immediately when clicked inside Google Sites
+        window.focus();
+      }}
       onTouchStart={handleTouchStart}
       onTouchEnd={handleTouchEnd}
     >
@@ -324,6 +342,7 @@ export default function App() {
           onSelectAvatar={handleSelectAvatar}
           onStartGame={handleStartGame}
           onOpenGuide={() => setIsGuideOpen(true)}
+          onToggleFullscreen={handleToggleFullscreen}
         />
       )}
 
@@ -348,6 +367,7 @@ export default function App() {
           onToggleMute={handleToggleMute}
           onToggleCamera={handleToggleCamera}
           onOpenGuide={() => setIsGuideOpen(true)}
+          onToggleFullscreen={handleToggleFullscreen}
         />
       )}
 

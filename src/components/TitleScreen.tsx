@@ -4,7 +4,7 @@
  */
 
 import React from 'react';
-import { Play, BookOpen, Music, Gauge, Clock, Sparkles, UserCheck } from 'lucide-react';
+import { Play, BookOpen, Music, Gauge, Clock, Sparkles, UserCheck, Maximize2 } from 'lucide-react';
 import {
   AVATAR_OPTIONS,
   AvatarId,
@@ -16,11 +16,13 @@ interface TitleScreenProps {
   difficulty: Difficulty;
   duration: DurationOption;
   selectedAvatar: AvatarId;
+  isEmbedded?: boolean;
   onDifficultyChange: (d: Difficulty) => void;
   onDurationChange: (dur: DurationOption) => void;
   onSelectAvatar: (avatarId: AvatarId) => void;
   onStartGame: () => void;
   onOpenGuide: () => void;
+  onToggleFullscreen?: () => void;
 }
 
 export const TitleScreen: React.FC<TitleScreenProps> = ({
@@ -32,6 +34,7 @@ export const TitleScreen: React.FC<TitleScreenProps> = ({
   onSelectAvatar,
   onStartGame,
   onOpenGuide,
+  onToggleFullscreen,
 }) => {
   return (
     <div className="absolute inset-0 z-30 flex flex-col justify-between p-4 sm:p-8 pointer-events-auto bg-gradient-to-b from-slate-950/85 via-slate-950/40 to-slate-950/90 select-none overflow-y-auto">
@@ -42,13 +45,26 @@ export const TitleScreen: React.FC<TitleScreenProps> = ({
           <span>Edisi Pembelajaran Not Baluk</span>
         </div>
 
-        <button
-          onClick={onOpenGuide}
-          className="flex items-center gap-2 px-4 py-2 bg-slate-900/90 hover:bg-slate-800 border border-slate-700/80 hover:border-cyan-400/50 rounded-xl text-xs font-bold text-cyan-300 transition-all cursor-pointer shadow-lg"
-        >
-          <BookOpen className="w-4 h-4 text-cyan-400" />
-          <span>Panduan Baluk (G, A, B)</span>
-        </button>
+        <div className="flex items-center gap-2">
+          {onToggleFullscreen && (
+            <button
+              onClick={onToggleFullscreen}
+              className="flex items-center gap-1.5 px-3 py-2 bg-slate-900/90 hover:bg-slate-800 border border-slate-700/80 hover:border-cyan-400/50 rounded-xl text-xs font-bold text-slate-300 hover:text-white transition-all cursor-pointer shadow-lg"
+              title="Skrin Penuh / Buka Paparan Penuh"
+            >
+              <Maximize2 className="w-3.5 h-3.5 text-cyan-400" />
+              <span className="hidden sm:inline">Skrin Penuh</span>
+            </button>
+          )}
+
+          <button
+            onClick={onOpenGuide}
+            className="flex items-center gap-2 px-3.5 sm:px-4 py-2 bg-slate-900/90 hover:bg-slate-800 border border-slate-700/80 hover:border-cyan-400/50 rounded-xl text-xs font-bold text-cyan-300 transition-all cursor-pointer shadow-lg"
+          >
+            <BookOpen className="w-4 h-4 text-cyan-400" />
+            <span>Panduan Baluk (G, A, B)</span>
+          </button>
+        </div>
       </div>
 
       {/* Centerpiece: Title Lockup & Setup */}
